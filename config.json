@@ -1,0 +1,13 @@
+{
+  "name": "import-mot-format",
+  "type": "app",
+  "categories": [
+    "Import"
+  ],
+  "description": "Convert mot format to supervysely",
+  "docker_image": "supervisely/base-py-sdk:6.1.62",
+  "main_script": "src/main.py",
+  "task_location": "application_sessions",
+  "icon": "https://img.icons8.com/color/96/000000/group.png",
+  "icon_background": "#FFFFFF"
+}
