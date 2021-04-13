@@ -78,8 +78,6 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
                 for idx, curr_video_obj in enumerate(ann.objects):
                     id_to_video_obj[curr_video_obj] = idx + 1
                 for frame_index, frame in enumerate(ann.frames):
-                    if frame_index == 40:
-                        a=0
                     for figure in frame.figures:
                         if figure.video_object.obj_class.name != target_class:
                             continue
