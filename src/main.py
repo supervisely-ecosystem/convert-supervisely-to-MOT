@@ -78,6 +78,8 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
                 for idx, curr_video_obj in enumerate(ann.objects):
                     id_to_video_obj[curr_video_obj] = idx + 1
                 for frame_index, frame in enumerate(ann.frames):
+                    if frame_index == 40:
+                        a=0
                     for figure in frame.figures:
                         if figure.video_object.obj_class.name != target_class:
                             continue
@@ -87,7 +89,7 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
                         height = figure.geometry.height
                         conf_val = 1
                         for curr_tag in figure.video_object.tags:
-                            if conf_tag_name == curr_tag.name and (curr_tag.frame_range is None or frame_index in range(curr_tag.frame_range[0], curr_tag.frame_range[1])):
+                            if conf_tag_name == curr_tag.name and (curr_tag.frame_range is None or frame_index in range(curr_tag.frame_range[0], curr_tag.frame_range[1] + 1)):
                                 conf_val = 0
                         curr_gt_data = '{},{},{},{},{},{},{},{},{},{}\n'.format(frame_index + 1, id_to_video_obj[figure.video_object], left, top, width - 1, height - 1, conf_val, -1, -1, -1)
                         with open(gt_path, 'a') as f:
