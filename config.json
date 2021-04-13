@@ -1,13 +1,22 @@
 {
-  "name": "import-mot-format",
+  "name": "Convert Supervisely to MOT format",
   "type": "app",
   "categories": [
-    "Import"
+    "convert format"
   ],
-  "description": "Convert mot format to supervysely",
-  "docker_image": "supervisely/base-py-sdk:6.1.62",
+  "description": "Transform project to MOT format and prepares tar archive for download",
+  "docker_image": "supervisely/base-py-sdk:6.1.59",
   "main_script": "src/main.py",
-  "task_location": "application_sessions",
-  "icon": "https://img.icons8.com/color/96/000000/group.png",
-  "icon_background": "#FFFFFF"
+  "modal_template": "src/modal.html",
+  "modal_template_state": {},
+  "gui_template": "src/gui.html",
+  "task_location": "workspace_tasks",
+  "isolate": true,
+  "headless": true,
+  "icon": "https://i.imgur.com/Ntpqy9x.png",
+  "icon_background": "#FFFFFF",
+  "context_menu": {
+    "target": ["videos_project"],
+    "context_root": "Download as"
+  }
 }
