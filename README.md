@@ -43,7 +43,7 @@ The meaning of the individual elements is:
 
 You can download example of MOT datasets [here](https://motchallenge.net/data/MOT15/).
 
-
+Current version of application supports only `gt` the file annotations.
 
 
 
@@ -52,7 +52,7 @@ You can download example of MOT datasets [here](https://motchallenge.net/data/MO
 ## How To Run 
 **Step 1**: Add app to your team from [Ecosystem](https://ecosystem.supervise.ly/apps/convert-supervisely-to-cityscapes-format) if it is not there.
 
-**Step 2**: Open context menu of project -> `Download as` -> `Convert Supervisely to Cityscapes format` 
+**Step 2**: Open context menu of video project -> `Download via App` -> `Convert Supervisely to MOT format` 
 
 <img src="https://i.imgur.com/XKDjlu3.png" width="600px"/>
 
@@ -62,6 +62,6 @@ After running the application, you will be redirected to the Tasks page. Once ap
 
 <img src="https://i.imgur.com/4AB2hgH.png"/>
 
-**Note** You can also find your images metadata in Team Files->cityscapes_format->app_id->`projectId_projectName.tar`
+**Note** You can also find your images metadata in Team Files->MOT_format->app_id->`projectId_projectName_MOT.tar`
 
 <img src="https://i.imgur.com/VxbXPJj.png"/>
