@@ -1,6 +1,6 @@
 <div align="center" markdown>
 
-<img src="https://i.imgur.com/EWqvYLb.png"/>
+<img src="https://i.imgur.com/EWqvYLb.png"  width="1500px"/>
 
 
 # From Supervisely to MOTChallenge format
@@ -62,7 +62,7 @@ Current version of application supports only `gt` the file annotations.
 ## How to use
 After running the application, you will be redirected to the Tasks page. Once application processing has finished, your link for downloading will become available. Click on the file name to download it
 
-<img src="https://i.imgur.com/YjLs8O5.png" width="1000px"/>
+<img src="https://i.imgur.com/D2VGuEW.png"/>
 
 **Note** You can also find your images metadata in Team Files->MOT_format->app_id->`projectId_projectName_MOT.tar`
 
