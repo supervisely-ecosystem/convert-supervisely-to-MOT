@@ -13,7 +13,8 @@ WORKSPACE_ID = int(os.environ['context.workspaceId'])
 PROJECT_ID = int(os.environ['modal.state.slyProjectId'])
 
 target_class = 'pedestrian'
-RESULT_DIR_NAME = 'MOT_format'
+RESULT_DIR_NAME = 'ApplicationsData'
+APP_NAME = 'Convert Supervisely to MOT'
 images_dir_name = 'img1'
 ann_dir_name = 'gt'
 dir_train = 'train'
@@ -101,7 +102,7 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
     app_logger.info("Result directory is archived")
 
     upload_progress = []
-    remote_archive_path = "/MOT_format/{}/{}".format(task_id, ARCHIVE_NAME)
+    remote_archive_path = "/{}/{}/{}/{}".format(RESULT_DIR_NAME, APP_NAME, task_id, ARCHIVE_NAME)
 
     def _print_progress(monitor, upload_progress):
         if len(upload_progress) == 0:
