@@ -3,7 +3,7 @@
 <img src="https://i.imgur.com/EWqvYLb.png"  width="1500px"/>
 
 
-# Import MOTChallenge
+# Convert Supervisely to MOTChallenge
 
 
 <p align="center">
