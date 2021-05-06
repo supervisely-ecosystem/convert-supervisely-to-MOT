@@ -62,8 +62,8 @@ Current version of application supports only `gt` the file annotations.
 ## How to use
 After running the application, you will be redirected to the Tasks page. Once application processing has finished, your link for downloading will be available. Click on the file name to download it.
 
-<img src="https://i.imgur.com/D2VGuEW.png"/>
+<img src="https://i.imgur.com/nwOQO67.png"/>
 
-**Note** You can also find your images metadata in Team Files->MOT_format->app_id->`projectId_projectName_MOT.tar`
+**Note** You can also find your converted project in `Team Files`->`ApplicationsData`->`Convert Supervisely to MOT`->`TaskID`->`projectName.tar`
 
-<img src="https://i.imgur.com/N3KQkoj.png"/>
+<img src="https://i.imgur.com/goY1opv.png"/>
