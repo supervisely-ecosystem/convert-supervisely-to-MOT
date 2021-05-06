@@ -35,7 +35,7 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
         raise TypeError("Project type is {!r}, but have to be {!r}".format(project.type, sly.ProjectType.VIDEOS))
 
     project_name = project.name
-    ARCHIVE_NAME = '{}.tar.gz'.format(project_name)
+    ARCHIVE_NAME = '{}_{}.tar.gz'.format(PROJECT_ID, project_name)
     meta_json = api.project.get_meta(PROJECT_ID)
     meta = sly.ProjectMeta.from_json(meta_json)
     obj_classes_names = []
