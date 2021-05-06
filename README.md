@@ -3,7 +3,7 @@
 <img src="https://i.imgur.com/EWqvYLb.png"  width="1500px"/>
 
 
-# From Supervisely to MOTChallenge format
+# Import MOTChallenge
 
 
 <p align="center">
@@ -52,15 +52,15 @@ Current version of application supports only `gt` the file annotations.
 
 
 ## How To Run 
-**Step 1**: Add app to your team from [Ecosystem](https://ecosystem.supervise.ly/apps/convert-supervisely-to-cityscapes-format) if it is not there.
+**Step 1**: Add app to your team from [Ecosystem](https://ecosystem.supervise.ly/apps) if it is not there.
 
 **Step 2**: Open context menu of video project -> `Download via App` -> `Convert Supervisely to MOT format` 
 
-<img src="https://i.imgur.com/79Et8F1.png" width="600px"/>
+<img src="https://i.imgur.com/0muByrl.png" width="900px"/>
 
 
 ## How to use
-After running the application, you will be redirected to the Tasks page. Once application processing has finished, your link for downloading will become available. Click on the file name to download it
+After running the application, you will be redirected to the Tasks page. Once application processing has finished, your link for downloading will be available. Click on the file name to download it.
 
 <img src="https://i.imgur.com/D2VGuEW.png"/>
 
