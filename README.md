@@ -12,9 +12,11 @@
   <a href="#How-To-Run">How To Run</a> •
   <a href="#How-To-Use">How To Use</a>
 </p>
+# 
+
 [![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervise.ly/slack)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/supervisely-ecosystem/convert-supervisely-to-MOT)
-[![views](https://app.supervise.ly/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/convert-supervisely-to-MOT(https://github.com/supervisely-ecosystem/convert-supervisely-to-MOT)&counter=views&label=views)](https://supervise.ly)
+[![views](https://app.supervise.ly/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/convert-supervisely-to-MOT&counter=views&label=views)](https://supervise.ly)
 [![used by teams](https://app.supervise.ly/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/convert-supervisely-to-MOT&counter=downloads&label=used%20by%20teams)](https://supervise.ly)
 [![runs](https://app.supervise.ly/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/convert-supervisely-to-MOT&counter=runs&label=runs&123)](https://supervise.ly)
 
@@ -24,7 +26,7 @@
 
 Converts [Supervisely](https://app.supervise.ly) format project to [MOTChallenge](https://motchallenge.net/) and prepares downloadable `tar` archive. 
 
-Supervisely project must necessarily contain class with name `pedestrian` with shape `Rectangle`. There are no restrictions for classes with other names and shapes. If project to convert contain None type tag with name `ignore_conf` on video figures, result annotation file will have `conf` value 0 for given figure. It means that this figure will not be considered when evaluating in MOTChallenge framework. More about MOT format and `conf` value you can read [here](https://motchallenge.net/instructions/).
+Supervisely project must necessarily contain class with name `pedestrian` with shape `Rectangle`. There are no restrictions for classes with other names and shapes. If project to convert contain `None` type `tag` with name `ignore_conf` on video figures, result annotation will have `conf` value 0 for given figure. It means that this figure will not be considered when evaluating in MOTChallenge framework. More about MOT format and `conf` value you can read [here](https://motchallenge.net/instructions/).
 
 The folder structure of the MOT dataset is as follows:
 
@@ -56,14 +58,14 @@ Current version of application supports only `gt` the file annotations.
 
 **Step 2**: Open context menu of video project -> `Download via App` -> `Convert Supervisely to MOT format` 
 
-<img src="https://i.imgur.com/0muByrl.png" width="900px"/>
+<img src="https://i.imgur.com/SPgLHD3.png" width="900px"/>
 
 
 ## How to use
 After running the application, you will be redirected to the `Tasks` page. Once application processing has finished, your link for downloading will be available. Click on the `file name` to download it.
 
-<img src="https://i.imgur.com/nwOQO67.png"/>
+<img src="https://i.imgur.com/61Ghukb.png"/>
 
-**Note** You can also find your converted project in `Team Files`->`ApplicationsData`->`Convert Supervisely to MOT`->`TaskID`->`projectID_projectName.tar`
+**Note** You can also find your converted project in `Team Files`->`Convert Supervisely to MOT`->`<taskId>_<projectId>_<projectName>.tar`
 
-<img src="https://i.imgur.com/goY1opv.png"/>
+<img src="https://i.imgur.com/aKCI2Iq.png"/>
