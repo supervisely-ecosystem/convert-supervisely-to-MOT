@@ -1,6 +1,5 @@
 <div align="center" markdown>
-
-<img src="https://i.imgur.com/EWqvYLb.png"  width="1500px"/>
+<img src="https://i.imgur.com/kfASO2Y.png"/>
 
 
 # Convert Supervisely to MOTChallenge
