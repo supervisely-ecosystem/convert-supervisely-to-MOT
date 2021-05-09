@@ -11,10 +11,10 @@ my_app = sly.AppService()
 TEAM_ID = int(os.environ['context.teamId'])
 WORKSPACE_ID = int(os.environ['context.workspaceId'])
 PROJECT_ID = int(os.environ['modal.state.slyProjectId'])
+TASK_ID = int(os.environ["TASK_ID"])
 
 target_class = 'pedestrian'
-RESULT_DIR_NAME = 'ApplicationsData'
-APP_NAME = 'Convert Supervisely to MOT'
+RESULT_DIR_NAME = 'Convert Supervisely to MOT'
 images_dir_name = 'img1'
 ann_dir_name = 'gt'
 dir_train = 'train'
@@ -35,7 +35,7 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
         raise TypeError("Project type is {!r}, but have to be {!r}".format(project.type, sly.ProjectType.VIDEOS))
 
     project_name = project.name
-    ARCHIVE_NAME = '{}_{}.tar.gz'.format(PROJECT_ID, project_name)
+    ARCHIVE_NAME = '{}_{}_{}.tar.gz'.format(TASK_ID, PROJECT_ID, project_name)
     meta_json = api.project.get_meta(PROJECT_ID)
     meta = sly.ProjectMeta.from_json(meta_json)
     obj_classes_names = []
@@ -52,7 +52,7 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
     key_id_map = KeyIdMap()
     for dataset in api.dataset.get_list(PROJECT_ID):
         videos = api.video.get_list(dataset.id)
-        for batch in sly.batched(videos):
+        for batch in sly.batched(videos, batch_size=10):
             for video_info in batch:
                 result_images = os.path.join(RESULT_DIR, dataset.name, dir_train, get_file_name(video_info.name), images_dir_name)
                 result_anns = os.path.join(RESULT_DIR, dataset.name, dir_train, get_file_name(video_info.name), ann_dir_name)
@@ -102,7 +102,7 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
     app_logger.info("Result directory is archived")
 
     upload_progress = []
-    remote_archive_path = "/{}/{}/{}/{}".format(RESULT_DIR_NAME, APP_NAME, task_id, ARCHIVE_NAME)
+    remote_archive_path = "/{}/{}".format(RESULT_DIR_NAME, ARCHIVE_NAME)
 
     def _print_progress(monitor, upload_progress):
         if len(upload_progress) == 0:
@@ -116,9 +116,7 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
     app_logger.info("Uploaded to Team-Files: {!r}".format(file_info.full_storage_url))
     api.task.set_output_archive(task_id, file_info.id, ARCHIVE_NAME, file_url=file_info.full_storage_url)
 
-
     my_app.stop()
-
 
 
 def main():
@@ -127,11 +125,8 @@ def main():
         "WORKSPACE_ID": WORKSPACE_ID,
         "modal.state.slyProjectId": PROJECT_ID
     })
-
-    # Run application service
     my_app.run(initial_events=[{"command": "from_sl_to_MOT"}])
 
 
-
 if __name__ == '__main__':
-        sly.main_wrapper("main", main)
+    sly.main_wrapper("main", main)
