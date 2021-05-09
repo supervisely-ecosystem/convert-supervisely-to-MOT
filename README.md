@@ -12,8 +12,6 @@
   <a href="#How-To-Run">How To Run</a> •
   <a href="#How-To-Use">How To Use</a>
 </p>
-# 
-
 [![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervise.ly/slack)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/supervisely-ecosystem/convert-supervisely-to-MOT)
 [![views](https://app.supervise.ly/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/convert-supervisely-to-MOT&counter=views&label=views)](https://supervise.ly)
@@ -30,7 +28,7 @@ Supervisely project must necessarily contain class with name `pedestrian` with s
 
 The folder structure of the MOT dataset is as follows:
 
-```
+```reStructuredText
 {root}/{dataset_name}/{train}/{video_name}/{gt}_{img1}_{seqinfo.ini}
 ```
 
@@ -58,7 +56,7 @@ Current version of application supports only `gt` the file annotations.
 
 **Step 2**: Open context menu of video project -> `Download via App` -> `Convert Supervisely to MOT format` 
 
-<img src="https://i.imgur.com/SPgLHD3.png" width="900px"/>
+<img src="https://i.imgur.com/SPgLHD3.png"/>
 
 
 ## How to use
