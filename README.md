@@ -28,8 +28,8 @@ Supervisely project must necessarily contain class with name `pedestrian` with s
 
 The folder structure of the MOT dataset is as follows:
 
-```reStructuredText
-{root}/{dataset_name}/{train}/{video_name}/{gt}_{img1}_{seqinfo.ini}
+```
+{root}/{dataset_name}/{train}/{video_name}/{gt}_{img1}_{seqinfo.ini}   
 ```
 
 The meaning of the individual elements is:
