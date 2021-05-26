@@ -5,7 +5,7 @@
     "convert format"
   ],
   "description": "Transform project to MOT format and prepares tar archive for download",
-  "docker_image": "supervisely/base-py-sdk:6.1.59",
+  "docker_image": "supervisely/base-py-sdk:6.1.80",
   "main_script": "src/main.py",
   "modal_template": "src/modal.html",
   "modal_template_state": {},
