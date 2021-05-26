@@ -4,6 +4,7 @@ import supervisely_lib as sly
 from supervisely_lib.io.fs import mkdir, get_file_name
 from supervisely_lib.video_annotation.key_id_map import KeyIdMap
 from supervisely_lib.geometry.rectangle import Rectangle
+from distutils import util
 
 
 my_app = sly.AppService()
@@ -13,7 +14,6 @@ WORKSPACE_ID = int(os.environ['context.workspaceId'])
 PROJECT_ID = int(os.environ['modal.state.slyProjectId'])
 TASK_ID = int(os.environ["TASK_ID"])
 
-target_class = 'pedestrian'
 RESULT_DIR_NAME = 'Convert Supervisely to MOT'
 images_dir_name = 'img1'
 ann_dir_name = 'gt'
@@ -21,8 +21,18 @@ dir_train = 'train'
 image_ext = '.jpg'
 gt_name = 'gt.txt'
 seq_name = 'seqinfo.ini'
-frame_rate=25
+frame_rate = 25
 conf_tag_name = 'ignore_conf'
+logger = sly.logger
+
+try:
+    os.environ['modal.state.shapes']
+except KeyError:
+    logger.warn('The option to export project is not selected, project will be export with all shapes')
+    DOWNLOAD_ALL_SHAPES = True
+else:
+    DOWNLOAD_ALL_SHAPES = bool(util.strtobool(os.environ['modal.state.shapes']))
+
 
 @my_app.callback("from_sl_to_MOT")
 @sly.timeit
@@ -38,14 +48,6 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
     ARCHIVE_NAME = '{}_{}_{}.tar.gz'.format(TASK_ID, PROJECT_ID, project_name)
     meta_json = api.project.get_meta(PROJECT_ID)
     meta = sly.ProjectMeta.from_json(meta_json)
-    obj_classes_names = []
-    for obj_class in meta.obj_classes:
-        obj_classes_names.append(obj_class.name)
-        if obj_class.name == target_class and obj_class.geometry_type != Rectangle:
-            raise ValueError('Pedestrian geometry type must be rectangle, not {}'.format(obj_class.geometry_type))
-
-    if target_class not in obj_classes_names:
-        raise ValueError('The video project must contain a pedestrian class to perform the conversion')
 
     RESULT_ARCHIVE = os.path.join(my_app.data_dir, ARCHIVE_NAME)
     RESULT_DIR = os.path.join(my_app.data_dir, RESULT_DIR_NAME)
@@ -54,6 +56,14 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
         videos = api.video.get_list(dataset.id)
         for batch in sly.batched(videos, batch_size=10):
             for video_info in batch:
+
+                ann_info = api.video.annotation.download(video_info.id)
+                ann = sly.VideoAnnotation.from_json(ann_info, meta, key_id_map)
+                curr_objs_geometry_types = [obj.obj_class.geometry_type for obj in ann.objects]
+
+                if not DOWNLOAD_ALL_SHAPES and Rectangle not in curr_objs_geometry_types:
+                    continue
+
                 result_images = os.path.join(RESULT_DIR, dataset.name, dir_train, get_file_name(video_info.name), images_dir_name)
                 result_anns = os.path.join(RESULT_DIR, dataset.name, dir_train, get_file_name(video_info.name), ann_dir_name)
                 seq_path = os.path.join(RESULT_DIR, dataset.name, dir_train, get_file_name(video_info.name), seq_name)
@@ -73,19 +83,19 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
                     f.write('imHeight={}\n'.format(video_info.frame_height))
                     f.write('imExt={}\n'.format(image_ext))
 
-                ann_info = api.video.annotation.download(video_info.id)
-                ann = sly.VideoAnnotation.from_json(ann_info, meta, key_id_map)
                 id_to_video_obj = {}
                 for idx, curr_video_obj in enumerate(ann.objects):
                     id_to_video_obj[curr_video_obj] = idx + 1
                 for frame_index, frame in enumerate(ann.frames):
                     for figure in frame.figures:
-                        if figure.video_object.obj_class.name != target_class:
+                        if not DOWNLOAD_ALL_SHAPES and figure.video_object.obj_class.geometry_type != Rectangle:
                             continue
-                        left = figure.geometry.left
-                        top = figure.geometry.top
-                        width = figure.geometry.width
-                        height = figure.geometry.height
+
+                        rectangle_geom =  figure.geometry.to_bbox()
+                        left = rectangle_geom.left
+                        top = rectangle_geom.top
+                        width = rectangle_geom.width
+                        height = rectangle_geom.height
                         conf_val = 1
                         for curr_tag in figure.video_object.tags:
                             if conf_tag_name == curr_tag.name and (curr_tag.frame_range is None or frame_index in range(curr_tag.frame_range[0], curr_tag.frame_range[1] + 1)):

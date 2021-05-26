@@ -1,0 +1,17 @@
+
+<div>
+    <sly-field title="Export project"
+               description="Export project with all geometry shapes or only with rectangle shapes">
+        <div class="fflex" style="flex-direction: column; align-items: flex-start">
+            <el-radio class="radio"
+                      v-model="state.shapes"
+                      label="True">Export all geometry shapes
+            </el-radio>
+            <el-radio class="radio"
+                      v-model="state.shapes"
+                      label="False"
+                      style="margin-left: 0;">Export only rectangle shapes
+            </el-radio>
+        </div>
+    </sly-field>
+</div>
