@@ -21,7 +21,7 @@
 
 App converts [Supervisely](https://app.supervise.ly) format project to [MOTChallenge](https://motchallenge.net/) and prepares downloadable `tar` archive. 
 
-Supervisely project must necessarily contain class with name `pedestrian` with shape `Rectangle`. There are no restrictions for classes with other names and shapes. If project to convert contains `None` type `tag` with name `ignore_conf` on video figures, result annotation will have `conf` value 0 for given figure. It means that this figure will not be considered when evaluating in MOTChallenge framework. More about MOT format and `conf` value you can read [here](https://motchallenge.net/instructions/).
+There is an additional option to export figures of all shapes or only figures with shape `Rectangle`. If project to convert contains `None` type `tag` with name `ignore_conf` on video figures, result annotation will have `conf` value 0 for given figure. It means that this figure will not be considered when evaluating in MOTChallenge framework. More about MOT format and `conf` value you can read [here](https://motchallenge.net/instructions/).
 
 Folder structure of the MOT dataset is as follows:
 
@@ -55,8 +55,12 @@ Current version of application supports only `gt` file annotations.
 
 <img src="https://i.imgur.com/SPgLHD3.png"/>
 
+**Step 3**: Select project export mode.
+
+<img src="https://i.imgur.com/0Ok7L0F.png" width="600px"/>
 
 ## How to use
+
 After running the application, you will be redirected to the `Tasks` page. Once application processing has finished, your link for downloading will be available. Click on the `file name` to download it.
 
 <img src="https://i.imgur.com/61Ghukb.png"/>

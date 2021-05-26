@@ -6,7 +6,6 @@ from supervisely_lib.video_annotation.key_id_map import KeyIdMap
 from supervisely_lib.geometry.rectangle import Rectangle
 from distutils import util
 
-
 my_app = sly.AppService()
 
 TEAM_ID = int(os.environ['context.teamId'])
@@ -62,10 +61,13 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
                 curr_objs_geometry_types = [obj.obj_class.geometry_type for obj in ann.objects]
 
                 if not DOWNLOAD_ALL_SHAPES and Rectangle not in curr_objs_geometry_types:
+                    logger.warn('Video {} not contain firuges with shape Rectangle'.format(video_info.name))
                     continue
 
-                result_images = os.path.join(RESULT_DIR, dataset.name, dir_train, get_file_name(video_info.name), images_dir_name)
-                result_anns = os.path.join(RESULT_DIR, dataset.name, dir_train, get_file_name(video_info.name), ann_dir_name)
+                result_images = os.path.join(RESULT_DIR, dataset.name, dir_train, get_file_name(video_info.name),
+                                             images_dir_name)
+                result_anns = os.path.join(RESULT_DIR, dataset.name, dir_train, get_file_name(video_info.name),
+                                           ann_dir_name)
                 seq_path = os.path.join(RESULT_DIR, dataset.name, dir_train, get_file_name(video_info.name), seq_name)
 
                 gt_path = os.path.join(result_anns, gt_name)
@@ -98,9 +100,14 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
                         height = rectangle_geom.height
                         conf_val = 1
                         for curr_tag in figure.video_object.tags:
-                            if conf_tag_name == curr_tag.name and (curr_tag.frame_range is None or frame_index in range(curr_tag.frame_range[0], curr_tag.frame_range[1] + 1)):
+                            if conf_tag_name == curr_tag.name and (
+                                    curr_tag.frame_range is None or frame_index in range(curr_tag.frame_range[0],
+                                                                                         curr_tag.frame_range[1] + 1)):
                                 conf_val = 0
-                        curr_gt_data = '{},{},{},{},{},{},{},{},{},{}\n'.format(frame_index + 1, id_to_video_obj[figure.video_object], left, top, width - 1, height - 1, conf_val, -1, -1, -1)
+                        curr_gt_data = '{},{},{},{},{},{},{},{},{},{}\n'.format(frame_index + 1,
+                                                                                id_to_video_obj[figure.video_object],
+                                                                                left, top, width - 1, height - 1,
+                                                                                conf_val, -1, -1, -1)
                         with open(gt_path, 'a') as f:
                             f.write(curr_gt_data)
                     image_name = str(frame_index).zfill(6) + image_ext
