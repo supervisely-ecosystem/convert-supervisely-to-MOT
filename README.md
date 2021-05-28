@@ -10,7 +10,7 @@
   <a href="#How-To-Use">How To Use</a>
 </p>
 
-  
+
 [![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervise.ly/slack)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/supervisely-ecosystem/convert-supervisely-to-MOT)
 [![views](https://app.supervise.ly/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/convert-supervisely-to-MOT&counter=views&label=views)](https://supervise.ly)
@@ -59,7 +59,7 @@ Current version of application supports only `gt` file annotations.
 
 **Step 3**: Select project export mode.
 
-<img src="https://i.imgur.com/0Ok7L0F.png" width="600px"/>
+<img src="https://i.imgur.com/dZIp3g7.png" width="600px"/>
 
 ## How to use
 
