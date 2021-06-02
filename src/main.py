@@ -1,4 +1,3 @@
-
 import os
 import supervisely_lib as sly
 from supervisely_lib.io.fs import mkdir, get_file_name
@@ -18,7 +17,7 @@ images_dir_name = 'img1'
 ann_dir_name = 'gt'
 dir_train = 'train'
 image_ext = '.jpg'
-gt_name = 'gt.txt'
+# gt_name = 'gt.txt'
 seq_name = 'seqinfo.ini'
 frame_rate = 25
 conf_tag_name = 'ignore_conf'
@@ -70,7 +69,7 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
                                            ann_dir_name)
                 seq_path = os.path.join(RESULT_DIR, dataset.name, dir_train, get_file_name(video_info.name), seq_name)
 
-                gt_path = os.path.join(result_anns, gt_name)
+                # gt_path = os.path.join(result_anns, gt_name)
                 progress = sly.Progress('Video being processed', len(batch), app_logger)
                 mkdir(result_images)
                 mkdir(result_anns)
@@ -108,7 +107,8 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
                                                                                 id_to_video_obj[figure.video_object],
                                                                                 left, top, width - 1, height - 1,
                                                                                 conf_val, -1, -1, -1)
-                        with open(gt_path, 'a') as f:
+                        filename = 'gt_{}.txt'.format(figure.parent_object.obj_class.name)
+                        with open(os.path.join(result_anns, filename), 'a') as f:  # gt_path
                             f.write(curr_gt_data)
                     image_name = str(frame_index).zfill(6) + image_ext
                     image_path = os.path.join(result_images, image_name)
