@@ -23,12 +23,12 @@
 
 App converts [Supervisely](https://app.supervise.ly) format project to [MOTChallenge](https://motchallenge.net/) and prepares downloadable `tar` archive. 
 
-There is an additional option to export figures of all shapes or only figures with shape `Rectangle`. If project to convert contains `None` type `tag` with name `ignore_conf` on video figures, result annotation will have `conf` value 0 for given figure. It means that this figure will not be considered when evaluating in MOTChallenge framework. More about MOT format and `conf` value you can read [here](https://motchallenge.net/instructions/).
+There is an additional option to export figures of all shapes or only figures with shape `Rectangle`. If project to convert contains `None` type `tag` with name `ignore_conf` on video figures, result annotation will have `conf` value 0 for given figure. It means that this figure will not be considered for MOTChallenge framework evaluation. More about MOT format and `conf` value you can read [here](https://motchallenge.net/instructions/).
 
 Folder structure of the MOT dataset is as follows:
 
 ```python
-{root}/{dataset_name}/{train}/{video_name}/{gt}_{img1}_{seqinfo.ini}   
+{root}/{dataset_name}/{train}/{video_name}/{gt + img1 + seqinfo.ini}   
 ```
 
 The meaning of the individual elements is:
@@ -36,17 +36,13 @@ The meaning of the individual elements is:
 - `root` root folder of the MOT dataset.
 - `dataset_name` name of dataset in converted project.
 - `video_name` name of video in current dataset.
-- `gt` folder with CSV text-file (gt.txt), containing one object instance per line. Each line contain 10 values. More about MOT format value you can read  [here](https://motchallenge.net/instructions/).
+- `gt` folder with CSV text-files (format: `gt_{classname}.txt`), containing one object instance per line. Each line contain 10 values. More about MOT format value you can read  [here](https://motchallenge.net/instructions/).
 - `img1` folder with images the video consists of.
 - `seqinfo.ini` file with images and video information.
-
-
 
 You can download example of MOT datasets [here](https://motchallenge.net/data/MOT15/).
 
 Current version of application supports only `gt` file annotations.
-
-
 
 
 
