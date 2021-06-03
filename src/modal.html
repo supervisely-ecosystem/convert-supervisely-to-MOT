@@ -1,7 +1,7 @@
 
 <div>
     <sly-field title="Export project"
-               description="Export project with all geometry shapes or only with rectangle shapes">
+               description="Export project with all geometry shapes(all object shapes(polygons, bitmaps, etc) other than rectangle will be converted to rectangles) or only with rectangle shapes">
         <div class="fflex" style="flex-direction: column; align-items: flex-start">
             <el-radio class="radio"
                       v-model="state.shapes"
