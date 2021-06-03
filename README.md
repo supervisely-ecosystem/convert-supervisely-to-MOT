@@ -57,7 +57,7 @@ Current version of application supports only `gt` file annotations.
 
 <img src="https://i.imgur.com/dZIp3g7.png" width="600px"/>
 
-**Note:** For case `ef` all object shapes(polygons, bitmaps, etc) other than rectangle will be converted to rectangles.
+**Note:** For case `Export all geometry shapes` all object shapes(polygons, bitmaps, etc) other than rectangle will be converted to rectangles.
 
 ## How to use
 
