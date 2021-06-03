@@ -65,6 +65,6 @@ After running the application, you will be redirected to the `Tasks` page. Once 
 
 <img src="https://i.imgur.com/61Ghukb.png"/>
 
-**Note:** You can also find your converted project in `Team Files`->`Convert Supervisely to MOT`->`<taskId>_<projectId>_<projectName>.tar`
+**Note:** You can also find your converted project in `Team Files`->`Convert Supervisely to MOT`->`<taskId>_<projectId>_<projectName>.tar.gz`
 
 <img src="https://i.imgur.com/aKCI2Iq.png"/>
