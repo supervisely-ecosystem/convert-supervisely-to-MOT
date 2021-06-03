@@ -57,7 +57,7 @@ Current version of application supports only `gt` file annotations.
 
 <img src="https://i.imgur.com/dZIp3g7.png" width="600px"/>
 
-**Note:** all object shapes other than rectangle will be converted to rectangles.
+**Note:** all object shapes(polygons, bitmaps, etc) other than rectangle will be converted to rectangles.
 
 ## How to use
 
