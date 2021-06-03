@@ -51,7 +51,7 @@ Current version of application supports only `gt` file annotations.
 
 **Step 2**: Open context menu of video project -> `Download via App` -> `Convert Supervisely to MOT format` 
 
-<img src="https://i.imgur.com/2U1invp.png" width="600px/>
+<img src="https://i.imgur.com/2U1invp.png" width="600px"/>
 
 **Step 3**: Select project export mode.
 
