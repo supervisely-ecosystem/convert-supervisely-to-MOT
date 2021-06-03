@@ -57,6 +57,8 @@ Current version of application supports only `gt` file annotations.
 
 <img src="https://i.imgur.com/dZIp3g7.png" width="600px"/>
 
+**Note:** all object shapes other than rectangle will be converted to rectangles.
+
 ## How to use
 
 After running the application, you will be redirected to the `Tasks` page. Once application processing has finished, your link for downloading will be available. Click on the `file name` to download it.
