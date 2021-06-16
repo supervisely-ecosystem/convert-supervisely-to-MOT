@@ -110,7 +110,7 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
                                                                                 conf_val, -1, -1, -1)
                         with open(gt_path, 'a') as f:
                             f.write(curr_gt_data)
-                    image_name = str(frame_index).zfill(6) + image_ext
+                    image_name = str(frame_index + 1).zfill(6) + image_ext
                     image_path = os.path.join(result_images, image_name)
                     api.video.frame.download_path(video_info.id, frame_index, image_path)
                 progress.iter_done_report()
