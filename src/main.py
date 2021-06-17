@@ -54,7 +54,7 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
         videos = api.video.get_list(dataset.id)
         for batch in sly.batched(videos, batch_size=10):
             for video_info in batch:
-
+                logger.warn('{}'.format(video_info.frames_count))
                 ann_info = api.video.annotation.download(video_info.id)
                 ann = sly.VideoAnnotation.from_json(ann_info, meta, key_id_map)
                 curr_objs_geometry_types = [obj.obj_class.geometry_type for obj in ann.objects]
@@ -112,8 +112,6 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
                             f.write(curr_gt_data)
                     image_name = str(frame_index + 1).zfill(6) + image_ext
                     image_path = os.path.join(result_images, image_name)
-                    logger.warn('curr_frame: {}'.format(frame_index))
-                    logger.warn('video name: {}'.format(video_info.name))
                     api.video.frame.download_path(video_info.id, frame_index, image_path)
                 progress.iter_done_report()
 
