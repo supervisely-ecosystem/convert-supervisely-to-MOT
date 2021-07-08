@@ -19,7 +19,7 @@ dir_train = 'train'
 image_ext = '.jpg'
 # gt_name = 'gt.txt'
 seq_name = 'seqinfo.ini'
-frame_rate = 25
+# frame_rate = 25
 conf_tag_name = 'ignore_conf'
 logger = sly.logger
 
@@ -78,7 +78,7 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
                     f.write('[Sequence]\n')
                     f.write('name={}\n'.format(get_file_name(video_info.name)))
                     f.write('imDir={}\n'.format(images_dir_name))
-                    f.write('frameRate={}\n'.format(frame_rate))
+                    f.write('frameRate={}\n'.format(video_info.frames_to_timecodes.index(1)))
                     f.write('seqLength={}\n'.format(video_info.frames_count))
                     f.write('imWidth={}\n'.format(video_info.frame_width))
                     f.write('imHeight={}\n'.format(video_info.frame_height))
