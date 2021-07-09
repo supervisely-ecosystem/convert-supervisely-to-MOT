@@ -78,7 +78,7 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
                     f.write('[Sequence]\n')
                     f.write('name={}\n'.format(get_file_name(video_info.name)))
                     f.write('imDir={}\n'.format(images_dir_name))
-                    f.write('frameRate={}\n'.format(video_info.frames_to_timecodes.index(1)))
+                    f.write('frameRate={}\n'.format(round(1 / video_info.frames_to_timecodes[1])))
                     f.write('seqLength={}\n'.format(video_info.frames_count))
                     f.write('imWidth={}\n'.format(video_info.frame_width))
                     f.write('imHeight={}\n'.format(video_info.frame_height))
