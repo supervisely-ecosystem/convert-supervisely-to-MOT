@@ -45,7 +45,7 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
     meta = sly.ProjectMeta.from_json(meta_json)
 
     dest_dir = os.path.join(my_app.data_dir, working_folder)
-    sly.download_video_project(api, PROJECT_ID, dest_dir, log_progress=True)
+    #sly.download_video_project(api, PROJECT_ID, dest_dir, log_progress=True)
 
     RESULT_ARCHIVE = os.path.join(my_app.data_dir, ARCHIVE_NAME)
     RESULT_DIR = os.path.join(my_app.data_dir, RESULT_DIR_NAME)
@@ -91,7 +91,6 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
             for idx, curr_video_obj in enumerate(ann.objects):
                 id_to_video_obj[curr_video_obj] = idx + 1
 
-            image_pathes = []
             for frame_index, frame in enumerate(ann.frames):
                 for figure in frame.figures:
                     if not DOWNLOAD_ALL_SHAPES and figure.video_object.obj_class.geometry_type != Rectangle:
@@ -115,23 +114,18 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
                     filename = 'gt_{}.txt'.format(figure.parent_object.obj_class.name)
                     with open(os.path.join(result_anns, filename), 'a') as f:  # gt_path
                         f.write(curr_gt_data)
-                image_name = str(frame_index + 1).zfill(6) + image_ext
-                image_path = os.path.join(result_images, image_name)
-                image_pathes.append(image_path)
                 if frame_index == ann.frames_count:
                     break
 
             vidcap = cv2.VideoCapture(video_path)
             success, image = vidcap.read()
-            count = 0
+            count = 1
             while success:
-                logger.warn('{} {} {}'.format(count, len(image_pathes), video_name))
-                curr_image_path = image_pathes[count]
-                cv2.imwrite(curr_image_path, image)
+                image_name = str(count).zfill(6) + image_ext
+                image_path = os.path.join(result_images, image_name)
+                cv2.imwrite(image_path, image)
                 success, image = vidcap.read()
                 count += 1
-                if count == len(image_pathes):
-                    break
 
             progress.iter_done_report()
 
