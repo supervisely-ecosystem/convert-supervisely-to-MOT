@@ -45,7 +45,7 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
     meta = sly.ProjectMeta.from_json(meta_json)
 
     dest_dir = os.path.join(my_app.data_dir, working_folder)
-    #sly.download_video_project(api, PROJECT_ID, dest_dir, log_progress=True)
+    sly.download_video_project(api, PROJECT_ID, dest_dir, log_progress=True)
 
     RESULT_ARCHIVE = os.path.join(my_app.data_dir, ARCHIVE_NAME)
     RESULT_DIR = os.path.join(my_app.data_dir, RESULT_DIR_NAME)
