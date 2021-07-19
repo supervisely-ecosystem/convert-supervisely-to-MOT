@@ -125,7 +125,7 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
             success, image = vidcap.read()
             count = 0
             while success:
-                logger.warn('{} {}'.format(count, video_name))
+                logger.warn('{} {} {}'.format(count, len(image_pathes), video_name))
                 curr_image_path = image_pathes[count]
                 cv2.imwrite(curr_image_path, image)
                 success, image = vidcap.read()
