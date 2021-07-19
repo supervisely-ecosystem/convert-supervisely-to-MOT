@@ -1,7 +1,6 @@
 import os
 import supervisely_lib as sly
 from supervisely_lib.io.fs import mkdir, get_file_name
-from supervisely_lib.video_annotation.key_id_map import KeyIdMap
 from supervisely_lib.geometry.rectangle import Rectangle
 from distutils import util
 from glob import glob
@@ -55,7 +54,6 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
 
     RESULT_ARCHIVE = os.path.join(my_app.data_dir, ARCHIVE_NAME)
     RESULT_DIR = os.path.join(my_app.data_dir, RESULT_DIR_NAME)
-    #key_id_map = KeyIdMap()
     datasets_pathes = glob(dest_dir + "/*/")
     for ds_path in datasets_pathes:
         ds_name = ds_path.split('/')[-2]
@@ -127,16 +125,17 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
                 image_pathes.append(image_path)
                 if frame_index == ann.frames_count:
                     break
-                #api.video.frame.download_path(video_info.id, frame_index, image_path)
 
             vidcap = cv2.VideoCapture(video_path)
             success, image = vidcap.read()
             count = 0
             while success:
-              curr_image_path = image_pathes[count]
-              cv2.imwrite(curr_image_path, image)
-              success,image = vidcap.read()
-              count += 1
+                curr_image_path = image_pathes[count]
+                cv2.imwrite(curr_image_path, image)
+                success, image = vidcap.read()
+                count += 1
+                if count == len(image_pathes):
+                    break
 
             progress.iter_done_report()
 
