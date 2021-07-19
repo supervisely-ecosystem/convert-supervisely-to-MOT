@@ -39,11 +39,6 @@ else:
 def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
 
     project = api.project.get_info_by_id(PROJECT_ID)
-    if project is None:
-        raise RuntimeError("Project with ID {!r} not found".format(PROJECT_ID))
-    if project.type != str(sly.ProjectType.VIDEOS):
-        raise TypeError("Project type is {!r}, but have to be {!r}".format(project.type, sly.ProjectType.VIDEOS))
-
     project_name = project.name
     ARCHIVE_NAME = '{}_{}_{}.tar.gz'.format(TASK_ID, PROJECT_ID, project_name)
     meta_json = api.project.get_meta(PROJECT_ID)
@@ -58,6 +53,7 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
     for ds_path in datasets_pathes:
         ds_name = ds_path.split('/')[-2]
         anns_pathes = glob(ds_path + "ann" + "/*")
+        progress = sly.Progress('Video being processed', len(anns_pathes), app_logger)
         for ann_path in anns_pathes:
             ann_json = sly.io.json.load_json_file(ann_path)
             ann = sly.VideoAnnotation.from_json(ann_json, meta)
@@ -78,7 +74,6 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
             seq_path = os.path.join(RESULT_DIR, ds_name, dir_train, get_file_name(video_name), seq_name)
 
             # gt_path = os.path.join(result_anns, gt_name)
-            progress = sly.Progress('Video being processed', len(anns_pathes), app_logger)
             mkdir(result_images)
             mkdir(result_anns)
 
@@ -130,6 +125,7 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
             success, image = vidcap.read()
             count = 0
             while success:
+                logger.warn('{} {}'.format(count, video_name))
                 curr_image_path = image_pathes[count]
                 cv2.imwrite(curr_image_path, image)
                 success, image = vidcap.read()
