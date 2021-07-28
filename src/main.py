@@ -28,7 +28,7 @@ logger = sly.logger
 try:
     os.environ['modal.state.shapes']
 except KeyError:
-    logger.warn('The option to export project is not selected, project will be export with all shapes')
+    logger.warn('The option to export project is not selected, project will be exported with all shapes')
     DOWNLOAD_ALL_SHAPES = True
 else:
     DOWNLOAD_ALL_SHAPES = bool(util.strtobool(os.environ['modal.state.shapes']))
@@ -41,7 +41,7 @@ def download_project(api, PROJECT_ID, dest_dir):
 def convert_project(dest_dir, RESULT_DIR, app_logger):
     datasets_pathes = glob(dest_dir + "/*/")
     if len(datasets_pathes) == 0:
-        logger.warn('There is no datasets in project')
+        logger.warn('There are no datasets in project')
 
     meta_json = sly.io.json.load_json_file(os.path.join(dest_dir, 'meta.json'))
     meta = sly.ProjectMeta.from_json(meta_json)
@@ -49,7 +49,7 @@ def convert_project(dest_dir, RESULT_DIR, app_logger):
     for ds_path in datasets_pathes:
         ds_name = ds_path.split('/')[-2]
         anns_pathes = glob(ds_path + "ann" + "/*")
-        progress = sly.Progress('Video being processed', len(anns_pathes), app_logger)
+        progress = sly.Progress('Processing Video', len(anns_pathes), app_logger)
         for ann_path in anns_pathes:
             ann_json = sly.io.json.load_json_file(ann_path)
             ann = sly.VideoAnnotation.from_json(ann_json, meta)
@@ -60,7 +60,7 @@ def convert_project(dest_dir, RESULT_DIR, app_logger):
             curr_objs_geometry_types = [obj.obj_class.geometry_type for obj in ann.objects]
 
             if not DOWNLOAD_ALL_SHAPES and Rectangle not in curr_objs_geometry_types:
-                logger.warn('Video {} not contain firuges with shape Rectangle'.format(video_name))
+                logger.warn('Video {} does not contain figures with shape Rectangle'.format(video_name))
                 continue
 
             result_images = os.path.join(RESULT_DIR, ds_name, dir_train, get_file_name(video_name),
@@ -87,7 +87,7 @@ def convert_project(dest_dir, RESULT_DIR, app_logger):
                 id_to_video_obj[curr_video_obj] = idx + 1
 
             if len(ann.frames) == 0:
-                logger.warn('There is no figures in {} video, gt.txt file will be empty'.format(video_name))
+                logger.warn('There are no figures in {} video, gt.txt file will be empty'.format(video_name))
 
             for frame_index, frame in enumerate(ann.frames):
                 for figure in frame.figures:
@@ -135,8 +135,6 @@ def from_sl_to_MOT(api: sly.Api, task_id, context, state, app_logger):
     project = api.project.get_info_by_id(PROJECT_ID)
     project_name = project.name
     ARCHIVE_NAME = '{}_{}_{}.tar.gz'.format(TASK_ID, PROJECT_ID, project_name)
-    meta_json = api.project.get_meta(PROJECT_ID)
-    meta = sly.ProjectMeta.from_json(meta_json)
 
     dest_dir = os.path.join(my_app.data_dir, working_folder)
     download_project(api, PROJECT_ID, dest_dir)
