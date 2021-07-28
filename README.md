@@ -21,8 +21,8 @@
 
 ## Overview
 
-App converts [Supervisely](https://app.supervise.ly) format project to [MOTChallenge](https://motchallenge.net/) and prepares downloadable `tar` archive. 
-In the modal video you have the option to export figures of all shapes or only figures with shape `Rectangle`. If project that you want to convert contains `None` type `tag` with name `ignore_conf` on video figures, result annotation will have `conf` value 0 for given figure. It means that this figure will not be considered for MOTChallenge framework evaluation. More about MOT format and `conf` value you can read [here](https://motchallenge.net/instructions/). All objects on video must have only one figure per frame
+App converts [Supervisely](https://docs.supervise.ly/data-organization/00_ann_format_navi) format project to [MOTChallenge](https://motchallenge.net/) and prepares downloadable `tar` archive. 
+In the modal video you have the option to export figures of all shapes or only figures with shape `Rectangle`. If project that you want to convert contains `None` type `tag` with name `ignore_conf` on video figures, result annotation will have `conf` value 0 for given figure. It means that this figure will not be considered for MOTChallenge framework evaluation. More about MOT format and `conf` value you can read [here](https://motchallenge.net/instructions/). All objects on video must have only one figure per frame. Backward compatible with [`Import MOT`](https://github.com/supervisely-ecosystem/import-mot-format) app.
 
 Current version of application supports only `gt` file annotations.
 
