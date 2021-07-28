@@ -14,7 +14,7 @@
   "isolate": true,
   "headless": true,
   "icon": "https://i.imgur.com/n0T1Aro.png",
-  "icon_background": "#FFFFFF",
+  "icon_cover": true,
   "context_menu": {
     "target": ["videos_project"],
     "context_root": "Download as"
