@@ -102,10 +102,10 @@ def convert_project(dest_dir, RESULT_DIR, app_logger):
                     conf_val = 1
                     for curr_tag in figure.video_object.tags:
                         if conf_tag_name == curr_tag.name and (
-                                curr_tag.frame_range is None or frame_index in range(curr_tag.frame_range[0],
+                                curr_tag.frame_range is None or frame.index in range(curr_tag.frame_range[0],
                                                                                      curr_tag.frame_range[1] + 1)):
                             conf_val = 0
-                    curr_gt_data = '{},{},{},{},{},{},{},{},{},{}\n'.format(frame_index + 1,
+                    curr_gt_data = '{},{},{},{},{},{},{},{},{},{}\n'.format(frame.index + 1,
                                                                             id_to_video_obj[figure.video_object],
                                                                             left, top, width - 1, height - 1,
                                                                             conf_val, -1, -1, -1)
