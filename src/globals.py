@@ -18,13 +18,14 @@ seq_name = 'seqinfo.ini'
 conf_tag_name = 'ignore_conf'
 logger = sly.logger
 
-try:
-    os.environ['modal.state.shapes']
-except KeyError:
-    sly.logger.warn('The option to export project is not selected, project will be exported with all shapes')
+ssd = os.environ['modal.state.shapes']
+
+
+
+if os.environ['modal.state.shapes'] == "true":
     DOWNLOAD_ALL_SHAPES = True
 else:
-    DOWNLOAD_ALL_SHAPES = bool(util.strtobool(os.environ['modal.state.shapes']))
+    DOWNLOAD_ALL_SHAPES = False
 
 project = api.project.get_info_by_id(PROJECT_ID)
 project_name = project.name
