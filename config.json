@@ -13,8 +13,8 @@
   "task_location": "workspace_tasks",
   "isolate": true,
   "headless": true,
-  "icon": "https://i.imgur.com/n0T1Aro.png",
-  "icon_background": "#FFFFFF",
+  "icon": "https://i.imgur.com/ihJKVt4.png",
+  "icon_cover": true,
   "context_menu": {
     "target": ["videos_project"],
     "context_root": "Download as"
