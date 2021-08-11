@@ -18,10 +18,6 @@ seq_name = 'seqinfo.ini'
 conf_tag_name = 'ignore_conf'
 logger = sly.logger
 
-ssd = os.environ['modal.state.shapes']
-
-
-
 if os.environ['modal.state.shapes'] == "true":
     DOWNLOAD_ALL_SHAPES = True
 else:
@@ -29,7 +25,7 @@ else:
 
 project = api.project.get_info_by_id(PROJECT_ID)
 project_name = project.name
-archive_name = '{}_{}.tar.gz'.format(PROJECT_ID, project_name)
+archive_name = '{}_{}_{}.tar.gz'.format(TASK_ID, PROJECT_ID, project_name)
 result_archive = os.path.join(my_app.data_dir, archive_name)
 
 storage_dir = os.path.join(my_app.data_dir, "mot_exporter")
