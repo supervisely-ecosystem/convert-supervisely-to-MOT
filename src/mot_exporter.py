@@ -37,6 +37,10 @@ def sort_mot():
 
     datasets = [ds for ds in os.listdir(g.sly_base_dir) if os.path.isdir(os.path.join(g.sly_base_dir, ds))]
     for ds in datasets:
+        ds_dir = os.path.join(temp_proj_dir, ds)
+        mkdir(ds_dir)
+
+
         ann_dir = os.path.join(g.sly_base_dir, ds, "ann")
         ann_paths = [os.path.join(ann_dir, ann_path) for ann_path in os.listdir(ann_dir) if
                      os.path.isfile(os.path.join(ann_dir, ann_path))]
