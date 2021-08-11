@@ -18,10 +18,13 @@ seq_name = 'seqinfo.ini'
 conf_tag_name = 'ignore_conf'
 logger = sly.logger
 
-if os.environ['modal.state.shapes'] == "true":
-    DOWNLOAD_ALL_SHAPES = True
-else:
-    DOWNLOAD_ALL_SHAPES = False
+shapes = os.environ['modal.state.shapes']
+
+
+# if os.environ['modal.state.shapes'] == "true":
+#     DOWNLOAD_ALL_SHAPES = True
+# elif os.environ['modal.state.shapes'] == "false":
+#     DOWNLOAD_ALL_SHAPES = False
 
 project = api.project.get_info_by_id(PROJECT_ID)
 project_name = project.name

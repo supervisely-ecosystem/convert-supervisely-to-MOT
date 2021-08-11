@@ -27,7 +27,8 @@ def convert_project(dest_dir, result_dir, app_logger):
 
             curr_objs_geometry_types = [obj.obj_class.geometry_type for obj in ann.objects]
 
-            if not g.DOWNLOAD_ALL_SHAPES and Rectangle not in curr_objs_geometry_types:
+            # if g.DOWNLOAD_ALL_SHAPES is False and Rectangle not in curr_objs_geometry_types:
+            if os.environ['modal.state.shapes'] == "false" and Rectangle not in curr_objs_geometry_types:
                 g.logger.warn('Video {} does not contain figures with shape Rectangle'.format(video_name))
                 continue
 
@@ -58,7 +59,8 @@ def convert_project(dest_dir, result_dir, app_logger):
 
             for frame_index, frame in enumerate(ann.frames):
                 for figure in frame.figures:
-                    if not g.DOWNLOAD_ALL_SHAPES and figure.video_object.obj_class.geometry_type != Rectangle:
+                   # if not g.DOWNLOAD_ALL_SHAPES and figure.video_object.obj_class.geometry_type != Rectangle:
+                    if os.environ['modal.state.shapes'] == "false" and figure.video_object.obj_class.geometry_type != Rectangle:
                         continue
 
                     rectangle_geom = figure.geometry.to_bbox()
