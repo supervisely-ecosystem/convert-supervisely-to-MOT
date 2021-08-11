@@ -14,7 +14,6 @@ def convert_project(dest_dir, result_dir, app_logger):
 
     meta_json = sly.json.load_json_file(os.path.join(dest_dir, 'meta.json'))
     meta = sly.ProjectMeta.from_json(meta_json)
-
     for ds_path in datasets_paths:
         ds_name = ds_path.split('/')[-2]
         anns_paths = glob(ds_path + "ann" + "/*")
@@ -42,7 +41,6 @@ def convert_project(dest_dir, result_dir, app_logger):
                 result_images = os.path.join(result_dir, ds_name, "test", get_file_name(video_name), g.images_dir_name)
                 seq_path = os.path.join(result_dir, ds_name, "test", get_file_name(video_name), g.seq_name)
                 mkdir(result_images)
-
 
             with open(seq_path, 'a') as f:
                 f.write('[Sequence]\n')
