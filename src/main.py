@@ -1,3 +1,4 @@
+import os
 import globals as g
 import mot_exporter
 import supervisely_lib as sly
@@ -9,9 +10,13 @@ def from_sly_to_mot(api: sly.Api, task_id, context, state, app_logger):
     sly.download_video_project(api, g.PROJECT_ID, g.sly_base_dir, log_progress=True)
     mot_exporter.convert_project(g.sly_base_dir, g.mot_base_dir, app_logger)
 
-    sly.fs.archive_directory(g.storage_dir, g.result_archive)
+    result_dir = os.path.join(g.storage_dir, g.project_name)
+    os.rename(g.mot_base_dir, result_dir)
+    sly.fs.remove_dir(g.sly_base_dir)
+
+    sly.fs.archive_directory(result_dir, g.result_archive)
     app_logger.info("Result directory is archived")
-    remote_archive_path = "/{}/'Export to MOT'/{}".format(g.my_app.data_dir, g.archive_name)
+    remote_archive_path = "/Export to MOT/{}".format(g.archive_name)
 
     upload_progress = []
     def _print_progress(monitor, upload_progress):

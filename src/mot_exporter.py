@@ -1,6 +1,5 @@
 import os
 import cv2
-import shutil
 import globals as g
 from glob import glob
 import supervisely_lib as sly
@@ -8,68 +7,7 @@ from supervisely_lib.io.fs import mkdir, get_file_name
 from supervisely_lib.geometry.rectangle import Rectangle
 
 
-def sort_mot():
-    path_to_meta = os.path.join(g.sly_base_dir, "meta.json")
-    path_to_key_id_map = os.path.join(g.sly_base_dir, "key_id_map.json")
-
-    meta_json = sly.json.load_json_file(path_to_meta)
-    meta = sly.ProjectMeta.from_json(meta_json)
-
-    temp_dir = os.path.join(g.storage_dir, "temp_dir")
-    temp_proj_dir = temp_dir
-    # temp_proj_dir = os.path.join(temp_dir, g.project_name)
-    temp_train_dir = os.path.join(temp_proj_dir, "train")
-    temp_test_dir = os.path.join(temp_proj_dir, "test")
-    temp_train_ann_dir = os.path.join(temp_train_dir, "ann")
-    temp_test_ann_dir = os.path.join(temp_test_dir, "ann")
-    temp_train_vid_dir = os.path.join(temp_train_dir, "video")
-    temp_test_vid_dir = os.path.join(temp_test_dir, "video")
-
-    sly.fs.mkdir(temp_dir, remove_content_if_exists=True)
-    sly.fs.mkdir(temp_proj_dir)
-    sly.fs.mkdir(temp_train_dir)
-    sly.fs.mkdir(temp_test_dir)
-
-    sly.fs.mkdir(temp_train_ann_dir)
-    sly.fs.mkdir(temp_test_ann_dir)
-    sly.fs.mkdir(temp_train_vid_dir)
-    sly.fs.mkdir(temp_test_vid_dir)
-
-    datasets = [ds for ds in os.listdir(g.sly_base_dir) if os.path.isdir(os.path.join(g.sly_base_dir, ds))]
-    for ds in datasets:
-        ds_dir = os.path.join(temp_proj_dir, ds)
-        mkdir(ds_dir)
-
-
-        ann_dir = os.path.join(g.sly_base_dir, ds, "ann")
-        ann_paths = [os.path.join(ann_dir, ann_path) for ann_path in os.listdir(ann_dir) if
-                     os.path.isfile(os.path.join(ann_dir, ann_path))]
-
-        vid_dir = os.path.join(g.sly_base_dir, ds, "video")
-        vid_paths = [os.path.join(vid_dir, vid_path) for vid_path in os.listdir(vid_dir) if
-                     os.path.isfile(os.path.join(vid_dir, vid_path))]
-
-
-        for ann_path, vid_path in zip(sorted(ann_paths), sorted(vid_paths)):
-            ann_json = sly.json.load_json_file(ann_path)
-            ann = sly.VideoAnnotation.from_json(ann_json, meta)
-            if len(ann.figures) > 0:
-                shutil.copy(ann_path, os.path.join(temp_train_ann_dir, os.path.basename(os.path.normpath(ann_path))))
-                shutil.copy(vid_path, os.path.join(temp_train_vid_dir, os.path.basename(os.path.normpath(vid_path))))
-            if len(ann.figures) == 0:
-                shutil.copy(ann_path, os.path.join(temp_test_ann_dir, os.path.basename(os.path.normpath(ann_path))))
-                shutil.copy(vid_path, os.path.join(temp_test_vid_dir, os.path.basename(os.path.normpath(vid_path))))
-
-
-    shutil.copy(path_to_meta, os.path.join(temp_proj_dir, "meta.json"))
-    shutil.copy(path_to_key_id_map, os.path.join(temp_proj_dir, "key_id_map.json"))
-
-    sly.fs.remove_dir(g.sly_base_dir)
-    os.rename(temp_dir, g.sly_base_dir)
-
-
 def convert_project(dest_dir, result_dir, app_logger):
-    sort_mot()
     datasets_paths = glob(dest_dir + "/*/")
     if len(datasets_paths) == 0:
         g.logger.warn('There are no datasets in project')
@@ -94,13 +32,17 @@ def convert_project(dest_dir, result_dir, app_logger):
                 g.logger.warn('Video {} does not contain figures with shape Rectangle'.format(video_name))
                 continue
 
-            result_images = os.path.join(result_dir, ds_name, get_file_name(video_name), g.images_dir_name)
-            if ds_name == "train":
-                result_anns = os.path.join(result_dir, ds_name, get_file_name(video_name), g.ann_dir_name)
-            seq_path = os.path.join(result_dir, ds_name, get_file_name(video_name), g.seq_name)
+            if len(ann.figures) > 0:
+                result_images = os.path.join(result_dir, ds_name, "train", get_file_name(video_name), g.images_dir_name)
+                result_anns = os.path.join(result_dir, ds_name, "train", get_file_name(video_name), g.ann_dir_name)
+                seq_path = os.path.join(result_dir, ds_name, "train", get_file_name(video_name), g.seq_name)
+                mkdir(result_images)
+                mkdir(result_anns)
+            if len(ann.figures) == 0:
+                result_images = os.path.join(result_dir, ds_name, "test", get_file_name(video_name), g.images_dir_name)
+                seq_path = os.path.join(result_dir, ds_name, "test", get_file_name(video_name), g.seq_name)
+                mkdir(result_images)
 
-            mkdir(result_images)
-            mkdir(result_anns)
 
             with open(seq_path, 'a') as f:
                 f.write('[Sequence]\n')
@@ -153,5 +95,3 @@ def convert_project(dest_dir, result_dir, app_logger):
                 count += 1
 
             progress.iter_done_report()
-    os.rename(g.mot_base_dir, os.path.join(g.storage_dir, g.project_name))
-    sly.fs.remove_dir(g.sly_base_dir)
