@@ -44,7 +44,8 @@ Application key points:
 <img src="https://imgur.com/Pda1KsZ.png" width="80%"/>
 
 3. Select project export mode:  
-For case `Export all geometry shapes` all object shapes (`polygon`, `bitmap`, etc) other than rectangle will be converted to **rectangles**.  
+- `Export all geometry shapes` — all object shapes (`polygon`, `bitmap`, etc.) will be converted to **rectangles**
+- `Export only rectangle shapes`
 
 <img src="https://imgur.com/aoCOox8.png" width="80%"/>
 
