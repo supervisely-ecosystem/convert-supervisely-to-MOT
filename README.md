@@ -30,7 +30,7 @@ Current version of application supports only `gt` file annotations. -->
 Application key points:  
 - Supports only `gt` file annotations
 - Backward compatible with [Import MOT](https://github.com/supervisely-ecosystem/import-mot-format)
-- `ignore_conf` tag sets `conf == 0` ([about conf](https://motchallenge.net/instructions/))
+- `ignore_conf` tag with type `None` sets `conf == 0` ([about conf](https://motchallenge.net/instructions/))
 
 
 
