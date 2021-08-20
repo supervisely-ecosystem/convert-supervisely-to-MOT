@@ -41,13 +41,13 @@ Application key points:
 
 2. Run app from the context menu of **Videos Project**:
 
-<img src="https://imgur.com/Pda1KsZ.png" width="80%"/>
+<img src="https://imgur.com/Pda1KsZ.png" width="100%"/>
 
 3. Select project export mode:  
 - `Export all geometry shapes` — all object shapes (`polygon`, `bitmap`, etc.) will be converted to **rectangles**
 - `Export only rectangle shapes`
 
-<img src="https://imgur.com/aoCOox8.png" width="80%"/>
+<img src="https://imgur.com/aoCOox8.png" width="100%"/>
 
 
 ## Results
