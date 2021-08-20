@@ -37,7 +37,7 @@ Application key points:
 # How to Use
 1. Add [Export to MOT](https://ecosystem.supervise.ly/apps/export-to-mot-format) to your team from Ecosystem.
 
-<img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/export-to-mot-format" src="https://imgur.com/XLOsIRN.png" width="350px" style='padding-bottom: 10px'/>  
+<img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/export-to-mot-format" src="https://imgur.com/XLOsIRN.png" width="350px" style='padding-bottom: 20px'/>  
 
 2. Run app from the context menu of **Videos Project**:
 
