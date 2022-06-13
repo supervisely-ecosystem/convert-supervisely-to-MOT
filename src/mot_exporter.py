@@ -2,9 +2,9 @@ import os
 import cv2
 import globals as g
 from glob import glob
-import supervisely_lib as sly
-from supervisely_lib.io.fs import mkdir, get_file_name
-from supervisely_lib.geometry.rectangle import Rectangle
+import supervisely as sly
+from supervisely.io.fs import mkdir, get_file_name
+from supervisely.geometry.rectangle import Rectangle
 
 
 def convert_project(dest_dir, result_dir, app_logger):

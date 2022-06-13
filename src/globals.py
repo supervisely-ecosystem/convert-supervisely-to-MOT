@@ -1,8 +1,9 @@
 import os
-import supervisely_lib as sly
-from supervisely_lib.io.fs import mkdir
+import supervisely as sly
+from supervisely.io.fs import mkdir
+from supervisely.app.v1.app_service import AppService
 
-my_app = sly.AppService()
+my_app = AppService()
 api: sly.Api = my_app.public_api
 
 TEAM_ID = int(os.environ['context.teamId'])
@@ -19,7 +20,7 @@ logger = sly.logger
 
 project = api.project.get_info_by_id(PROJECT_ID)
 project_name = project.name
-archive_name = '{}_{}_{}.tar.gz'.format(TASK_ID, PROJECT_ID, project_name)
+archive_name = f'{TASK_ID}_{PROJECT_ID}_{project_name}.tar.gz'
 result_archive = os.path.join(my_app.data_dir, archive_name)
 
 storage_dir = os.path.join(my_app.data_dir, "mot_exporter")
