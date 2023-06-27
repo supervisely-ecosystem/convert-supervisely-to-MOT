@@ -1,5 +1,5 @@
 <div align="center" markdown>
-<img src="https://i.imgur.com/wDdLM8H.png"/>
+<img src="media/poster.png"/>
 
 
 # Export to MOT
@@ -36,26 +36,26 @@ Application key points:
 # How to Use
 1. Add [Export to MOT](https://ecosystem.supervise.ly/apps/export-to-mot-format) to your team from Ecosystem.
 
-<img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/export-to-mot-format" src="https://imgur.com/XLOsIRN.png" width="350px" style='padding-bottom: 20px'/>  
+<img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/export-to-mot-format" src="media/htr1.png" width="350px" style='padding-bottom: 20px'/>  
 
 2. Run app from the context menu of **Videos Project**:
 
-<img src="https://imgur.com/Pda1KsZ.png" width="100%"/>
+<img src="media/htr2.png" width="100%"/>
 
 3. Select project export mode:  
 - `Export all geometry shapes` — all object shapes (`polygon`, `bitmap`, etc.) will be converted to **rectangles**
 - `Export only rectangle shapes`
 
-<img src="https://imgur.com/aoCOox8.png" width="100%"/>
+<img src="media/htr3.png" width="100%"/>
 
 
 # Results
 
 After running the application, you will be redirected to the `Tasks` page. Once application processing has finished, your link for downloading will be available. Click on the `file name` to download it.
 
-<img src="https://i.imgur.com/4oE9sxi.png"/>
+<img src="media/r1.png"/>
 
 You can also find your converted project in   
 `Team Files` -> `Convert Supervisely to MOT` -> `<taskId>_<projectId>_<projectName>.tar.gz`
 
-<img src="https://i.imgur.com/3pDolxh.png"/>
+<img src="media/r2.png"/>
