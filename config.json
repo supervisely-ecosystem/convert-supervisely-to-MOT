@@ -17,7 +17,7 @@
   "task_location": "workspace_tasks",
   "isolate": true,
   "headless": true,
-  "icon": "https://i.imgur.com/ihJKVt4.png",
+  "icon": "media/icon.png",
   "icon_cover": true,
   "context_menu": {
     "target": [
@@ -25,5 +25,5 @@
     ],
     "context_root": "Download as"
   },
-  "poster": "https://i.imgur.com/wDdLM8H.png"
+  "poster": "media/poster.png"
 }
